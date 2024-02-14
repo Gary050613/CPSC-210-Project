@@ -5,6 +5,7 @@ import java.util.List;
 
 // Represents an actual class. Contains Teachers, TA's, and students. Contains assignment information.
 public class Class {
+    // Course Properties
     private String courseName;
     private String courseDescription;
 
@@ -16,6 +17,7 @@ public class Class {
     // Items
     private List<Assignment> listOfAssignments;
 
+    // Constructor
     public Class(String courseName, String courseDescription) {
         this.courseName = courseName;
         this.courseDescription = courseDescription;
