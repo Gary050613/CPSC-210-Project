@@ -20,18 +20,17 @@ public class Submission {
         this.submission = null;
     }
 
-    // REQUIRES: submittedTime <= assignment.dueDate
+    // REQUIRES: submittedTime <= assignment.dueDate (Checked in Assignment.studentSubmit())
     // MODIFIES: this
-    // EFFECTS: Submit the assignment for the student, or throw DueDatePast error
-    public void submit(String submittedContent) throws DueDatePast {
-        if (LocalDateTime.now().isBefore(assignment.getDueDate())) {
-            this.submission = submittedContent;
-            submittedTime = LocalDateTime.now();
-        } else {
-            throw new DueDatePast();
-        }
+    // EFFECTS: Submit the assignment for the student
+    public void submit(String submittedContent, LocalDateTime time) {
+        this.submission = submittedContent;
+        submittedTime = time;
     }
 
+    // REQUIRES: assignedMark <= assignment.getAvailableMark() (Checked in Assignment.mark())
+    // MODIFIES: this
+    // EFFECTS: Mark this submission with assignedMark and save marked time
     public void mark(int assignedMark) {
         this.mark = assignedMark;
         this.markedTime = LocalDateTime.now();
@@ -46,11 +45,11 @@ public class Submission {
         return assignment;
     }
 
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
-
     public int getMark() {
         return mark;
+    }
+
+    public String getSubmission() {
+        return submission;
     }
 }

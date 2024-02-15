@@ -1,5 +1,9 @@
 package model;
 
+import error.DueDatePast;
+import error.MarkOverflow;
+import error.NoSubmission;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +15,7 @@ public class Assignment {
     private int availableMark;
     private Class assignedClass;
 
-    private HashMap<Student, Integer> studentMarks;
-    private HashMap<Student, String> submissions;
+    private HashMap<Student, Submission> submissions;
 
     public Assignment(String name, String description, LocalDateTime dueDate, int availableMark, Class assignedClass) {
         this.name = name;
@@ -20,24 +23,38 @@ public class Assignment {
         this.dueDate = dueDate;
         this.availableMark = availableMark;
         this.assignedClass = assignedClass;
-        this.studentMarks = new HashMap<>();
         this.submissions = new HashMap<>();
+        for (Student stud : assignedClass.getListOfStudents()) {
+            submissions.put(stud, new Submission(stud, this));
+        }
     }
 
-    // REQUIRES: stud a part of the assignedClass, submitted before dueDate
+    // REQUIRES: stud a part of the assignedClass (Assumed by the ability to access this method)
     // MODIFIES: this
-    // EFFECTS: Add the student submission to submissions
-    public void studentSubmit(Student stud, String submission) {
-        // TODO: Add error detection for the two REQUIRES
-        this.submissions.put(stud, submission);
+    // EFFECTS: Add the student submission to submissions, throws DueDatePast exception if past dueDate
+    public void studentSubmit(Student stud, String submission) throws DueDatePast {
+        if (LocalDateTime.now().isAfter(dueDate)) {
+            throw new DueDatePast();
+        } else {
+            this.submissions.get(stud).submit(submission, LocalDateTime.now());
+        }
     }
 
-    // REQUIRES: stud has a submission & mark <= availableMark
     // MODIFIES: this
     // EFFECTS: Marks the assignment for the student
-    public void mark(Student stud, int mark) {
-        // TODO: Check role eligibility to mark
-        this.studentMarks.put(stud, (Integer) mark);
+    public void mark(Student stud, int mark) throws NoSubmission, MarkOverflow {
+        if (submissions.get(stud).getSubmission() == null) {
+            throw new NoSubmission();
+        } else if (mark > availableMark) {
+            throw new MarkOverflow();
+        } else {
+            this.submissions.get(stud).mark(mark);
+        }
+    }
+
+    // EFFECTS: Return the stud's submission
+    public Submission getSubmission(Student stud) {
+        return submissions.get(stud);
     }
 
     // Getters & Setters
