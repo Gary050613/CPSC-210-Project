@@ -59,8 +59,12 @@ public class Assignment {
     }
 
     // EFFECTS: Return the stud's submission
-    public Submission getSubmission(Student stud) {
-        return submissions.get(stud);
+    public Submission getSubmission(Student stud) throws NoSubmission {
+        if (submissions.get(stud) == null) {
+            throw new NoSubmission();
+        } else {
+            return submissions.get(stud);
+        }
     }
 
     // Getters & Setters

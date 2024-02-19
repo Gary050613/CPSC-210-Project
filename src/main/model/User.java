@@ -8,7 +8,6 @@ import java.util.List;
 
 // A User who may be (Student, TA, or Teacher)
 public class User {
-    // delete or rename this class!
     private String userName;
     private String password;
     private List<Class> listOfClasses;

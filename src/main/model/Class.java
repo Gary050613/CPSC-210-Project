@@ -67,9 +67,9 @@ public class Class {
     }
 
     // MODIFIES: this
-    // EFFECTS: Create a new assignment and add to listOfAssignments
-    public void createAssignment(String assName, String assDesc, LocalDateTime dueDate, int availMark) {
-        listOfAssignments.add(new Assignment(assName, assDesc, dueDate, availMark, this));
+    // EFFECTS: Add a new assignment and add to listOfAssignments
+    public void addAssignment(Assignment ass) {
+        listOfAssignments.add(ass);
     }
 
     // Getters & Setters
