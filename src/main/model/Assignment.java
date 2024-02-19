@@ -32,17 +32,18 @@ public class Assignment {
     // MODIFIES: this
     // EFFECTS: Add the student submission to submissions, throws DueDatePast exception if past dueDate
     public void studentSubmit(Student stud, String submission) throws DueDatePast {
-        if (LocalDateTime.now().isAfter(dueDate)) {
+        LocalDateTime snapshot = LocalDateTime.now();
+        if (snapshot.isAfter(dueDate)) {
             throw new DueDatePast();
         } else {
-            this.submissions.get(stud).submit(submission, LocalDateTime.now());
+            this.submissions.get(stud).submit(submission, snapshot);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: Marks the assignment for the student
     public void mark(Student stud, int mark) throws NoSubmission, MarkOverflow {
-        if (submissions.get(stud).getSubmission() == null) {
+        if (submissions.get(stud).getContent() == null) {
             throw new NoSubmission();
         } else if (mark > availableMark) {
             throw new MarkOverflow();

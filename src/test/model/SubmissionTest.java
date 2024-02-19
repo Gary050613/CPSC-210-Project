@@ -20,7 +20,7 @@ public class SubmissionTest {
     void testSubmit() {
         LocalDateTime dateTime = LocalDateTime.now();
         sub.submit("1+1=2", dateTime);
-        assertEquals("1+1=2", sub.getSubmission());
+        assertEquals("1+1=2", sub.getContent());
         assertEquals(dateTime, sub.getSubmittedTime());
     }
 

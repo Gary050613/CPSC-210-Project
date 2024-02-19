@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Submission {
     private Student byStudent;
@@ -8,21 +9,21 @@ public class Submission {
     private int mark;
     private LocalDateTime submittedTime;
     private LocalDateTime markedTime;
-    private String submission;
+    private String content;
 
     // Constructor
     public Submission(Student byStudent, Assignment assignment) {
         this.byStudent = byStudent;
         this.assignment = assignment;
         this.mark = -1;
-        this.submission = null;
+        this.content = null;
     }
 
     // REQUIRES: submittedTime <= assignment.dueDate (Checked in Assignment.studentSubmit())
     // MODIFIES: this
     // EFFECTS: Submit the assignment for the student
     public void submit(String submittedContent, LocalDateTime time) {
-        this.submission = submittedContent;
+        this.content = submittedContent;
         submittedTime = time;
     }
 
@@ -32,6 +33,17 @@ public class Submission {
     public void mark(int assignedMark) {
         this.mark = assignedMark;
         this.markedTime = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Submission that = (Submission) o;
+        return mark == that.mark
+                && Objects.equals(byStudent, that.byStudent)
+                && Objects.equals(assignment, that.assignment)
+                && Objects.equals(submittedTime, that.submittedTime)
+                && Objects.equals(markedTime, that.markedTime)
+                && Objects.equals(content, that.content);
     }
 
     // Getters & Setters (No setters for Student & Assignment)
@@ -55,7 +67,7 @@ public class Submission {
         return mark;
     }
 
-    public String getSubmission() {
-        return submission;
+    public String getContent() {
+        return content;
     }
 }

@@ -96,4 +96,12 @@ public class Class {
     public List<Assignment> getListOfAssignments() {
         return listOfAssignments;
     }
+
+    public List<Teacher> getListOfTeachers() {
+        return listOfTeachers;
+    }
+
+    public List<TA> getListOfTAs() {
+        return listOfTAs;
+    }
 }
