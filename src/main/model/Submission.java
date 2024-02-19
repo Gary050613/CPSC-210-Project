@@ -35,6 +35,14 @@ public class Submission {
     }
 
     // Getters & Setters (No setters for Student & Assignment)
+    public LocalDateTime getSubmittedTime() {
+        return submittedTime;
+    }
+
+    public LocalDateTime getMarkedTime() {
+        return markedTime;
+    }
+
     public Student getByStudent() {
         return byStudent;
     }
