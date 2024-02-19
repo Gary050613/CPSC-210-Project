@@ -64,6 +64,7 @@ public class Canvos {
         System.out.println("\tq -> quit");
     }
 
+    // EFFECTS: Maps the input commands to the corresponding functions
     private void processCommand(String command) {
         if (command.equals("t")) {
             runTeacher();
@@ -76,6 +77,7 @@ public class Canvos {
         }
     }
 
+    // EFFECTS: Presents the list of classes and provides function to choose
     private Class selectClass() {
         for (int i = 0;i < db.getClasses().size();i++) {
             System.out.print(db.getClasses().get(i).getCourseName());
@@ -90,6 +92,7 @@ public class Canvos {
         return db.getClasses().get(classSelection);
     }
 
+    // EFFECTS: Presents the list of students and provides function to choose
     private Student selectStudent() {
         for (int i = 0;i < db.getStudents().size();i++) {
             System.out.print(db.getStudents().get(i).getUserName());
@@ -104,6 +107,7 @@ public class Canvos {
         return db.getStudents().get(studentSelection);
     }
 
+    // EFFECTS: Presents the list of assignments for a class and provides function to choose
     private Assignment selectAssignment(Class clas) {
         for (int i = 0;i < clas.getListOfAssignments().size();i++) {
             System.out.print(clas.getListOfAssignments().get(i).getName());
@@ -133,6 +137,7 @@ public class Canvos {
 
     //TEACHER UI SECTION
 
+    // EFFECTS: Log the teacher in and return the account or return null if failed
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private Teacher runTeacherLogin() {
         Teacher curUser = null;
@@ -171,7 +176,7 @@ public class Canvos {
         return null;
     }
 
-    //
+    // EFFECTS: Runs the Teacher portal
     private void runTeacher() {
         Teacher account = runTeacherLogin();
         if (account == null) {
@@ -200,7 +205,7 @@ public class Canvos {
         System.out.println("\tq -> quit");
     }
 
-    //
+    // EFFECTS: Maps Teacher commands to corresponding functions
     private void processTeacherCommand(String command, Teacher account) {
         if (command.equals("a")) {
             teacherAddStudent(account);
@@ -215,6 +220,8 @@ public class Canvos {
         }
     }
 
+    // MODIFIES: Class
+    // EFFECTS: Presents options to pick student to add to a class
     private void teacherAddStudent(Teacher account) {
         Class curClass = selectClass();
         if (curClass == null) {
@@ -232,6 +239,8 @@ public class Canvos {
         }
     }
 
+    // MODIFIES: Class
+    // EFFECTS: Creates a new assignment for a class
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void teacherCreateAssignment(Teacher account) {
         Class curClass = selectClass();
@@ -263,6 +272,7 @@ public class Canvos {
         System.out.println("Assignment created!");
     }
 
+    // EFFECTS: Prints  a list of students of a class
     private void teacherViewStudents(Teacher account) {
         Class curClass = selectClass();
         if (curClass == null) {
@@ -276,6 +286,7 @@ public class Canvos {
         System.out.println();
     }
 
+    // EFFECTS: Prints the submission details of a student's assignment
     private void teacherViewSubmissions(Teacher account) {
         Class curClass = selectClass();
         if (curClass == null) {
