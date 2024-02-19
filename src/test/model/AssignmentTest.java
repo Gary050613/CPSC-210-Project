@@ -28,6 +28,14 @@ public class AssignmentTest {
     }
 
     @Test
+    void testConstructor() {
+        assertEquals(ass.getName(), "HW1");
+        assertEquals(ass.getDescription(), "hw1");
+
+        assertEquals(ass.getAvailableMark(), 50);
+    }
+
+    @Test
     void testStudentSubmit() {
         ass.setDueDate(LocalDateTime.now().plusSeconds(1));
         try {
