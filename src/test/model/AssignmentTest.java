@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AssignmentTest {
     Assignment ass;
@@ -108,10 +107,12 @@ public class AssignmentTest {
     void testAddStudent() {
         Student newStud = new Student("Stu", "123");
         ass.addStudent(newStud);
-        Submission check = new Submission(newStud, ass);
         try {
-            assertEquals(check, ass.getSubmission(newStud));
+            ass.getSubmission(newStud);
+            fail();
         } catch (NoSubmission e) {
+
+        } catch (Exception e) {
             fail();
         }
     }
@@ -119,9 +120,11 @@ public class AssignmentTest {
     @Test
     void testGetSubmission() {
         try {
-            Submission check = new Submission(stud, ass);
-            assertEquals(check, ass.getSubmission(stud));
+            ass.getSubmission(stud);
+            fail();
         } catch (NoSubmission e) {
+
+        } catch (Exception e) {
             fail();
         }
     }

@@ -129,7 +129,7 @@ public class Canvos {
         }
     }
 
-    //
+    //TEACHER UI SECTION
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private Teacher runTeacherLogin() {

@@ -35,17 +35,6 @@ public class Submission {
         this.markedTime = LocalDateTime.now();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        Submission that = (Submission) o;
-        return mark == that.mark
-                && Objects.equals(byStudent, that.byStudent)
-                && Objects.equals(assignment, that.assignment)
-                && Objects.equals(submittedTime, that.submittedTime)
-                && Objects.equals(markedTime, that.markedTime)
-                && Objects.equals(content, that.content);
-    }
-
     // Getters & Setters (No setters for Student & Assignment)
     public LocalDateTime getSubmittedTime() {
         return submittedTime;
