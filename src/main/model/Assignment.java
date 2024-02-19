@@ -5,7 +5,6 @@ import error.MarkOverflow;
 import error.NoSubmission;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 
 public class Assignment {
@@ -50,6 +49,13 @@ public class Assignment {
         } else {
             this.submissions.get(stud).mark(mark);
         }
+    }
+
+    // REQUIRES: stud not already assigned
+    // MODIFIES: this
+    // EFFECTS: Add the student to this assignment
+    public void addStudent(Student stud) {
+        submissions.put(stud, new Submission(stud, this));
     }
 
     // EFFECTS: Return the stud's submission

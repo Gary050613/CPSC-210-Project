@@ -1,7 +1,5 @@
 package model;
 
-import error.DueDatePast;
-
 import java.time.LocalDateTime;
 
 public class Submission {

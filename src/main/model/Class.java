@@ -1,6 +1,6 @@
 package model;
 
-import error.UserAlreadyExists;
+import error.AlreadyInClass;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,35 +32,37 @@ public class Class {
 
     // MODIFIES: this
     // EFFECTS: Add a new teacher to this class
-    public void addTeacher(Teacher teacher) throws UserAlreadyExists {
+    public void addTeacher(Teacher teacher) throws AlreadyInClass {
         if (listOfTeachers.contains(teacher)) {
-            throw new UserAlreadyExists();
+            throw new AlreadyInClass();
         } else {
             listOfTeachers.add(teacher);
-            // TODO: Add this class to the teacher's class list
+            teacher.addClass(this);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: Add a new TA to this class
-    public void addTA(TA ta) throws UserAlreadyExists {
+    public void addTA(TA ta) throws AlreadyInClass {
         if (listOfTAs.contains(ta)) {
-            throw new UserAlreadyExists();
+            throw new AlreadyInClass();
         } else {
             listOfTAs.add(ta);
-            // TODO: Add this class to the TA's class list
+            ta.addClass(this);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: Add a new Student to this class, assign all current assignments to the student
-    public void addStudent(Student stud) throws UserAlreadyExists {
+    public void addStudent(Student stud) throws AlreadyInClass {
         if (listOfStudents.contains(stud)) {
-            throw new UserAlreadyExists();
+            throw new AlreadyInClass();
         } else {
             listOfStudents.add(stud);
-            // TODO: Add this class to the student's class list
-            // TODO: Assign all current assignments to the student
+            stud.addClass(this);
+            for (Assignment ass : listOfAssignments) {
+                ass.addStudent(stud);
+            }
         }
     }
 
