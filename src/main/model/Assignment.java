@@ -73,21 +73,21 @@ public class Assignment {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getDueDate() {
-        return dueDate;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public LocalDateTime getDueDate() {
+//        return dueDate;
+//    }
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
@@ -97,15 +97,15 @@ public class Assignment {
         return availableMark;
     }
 
-    public void setAvailableMark(int availableMark) {
-        this.availableMark = availableMark;
-    }
-
-    public Class getAssignedClass() {
-        return assignedClass;
-    }
-
-    public void setAssignedClass(Class assignedClass) {
-        this.assignedClass = assignedClass;
-    }
+//    public void setAvailableMark(int availableMark) {
+//        this.availableMark = availableMark;
+//    }
+//
+//    public Class getAssignedClass() {
+//        return assignedClass;
+//    }
+//
+//    public void setAssignedClass(Class assignedClass) {
+//        this.assignedClass = assignedClass;
+//    }
 }

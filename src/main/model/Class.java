@@ -77,17 +77,17 @@ public class Class {
         return courseName;
     }
 
-    public void setCourseName(String newCourseName) {
-        courseName = newCourseName;
-    }
+//    public void setCourseName(String newCourseName) {
+//        courseName = newCourseName;
+//    }
 
     public String getCourseDescription() {
         return courseDescription;
     }
 
-    public void setCourseDescription(String newDescription) {
-        courseDescription = newDescription;
-    }
+//    public void setCourseDescription(String newDescription) {
+//        courseDescription = newDescription;
+//    }
 
     public List<Student> getListOfStudents() {
         return listOfStudents;

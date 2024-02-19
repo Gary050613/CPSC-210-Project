@@ -38,13 +38,13 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String newUserName) {
-        this.userName = newUserName;
-    }
+//    public void setUserName(String newUserName) {
+//        this.userName = newUserName;
+//    }
 
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
-    }
+//    public void setPassword(String newPassword) {
+//        this.password = newPassword;
+//    }
 
     public List<Class> getlistOfClasses() {
         return listOfClasses;

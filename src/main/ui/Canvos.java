@@ -26,9 +26,11 @@ public class Canvos {
         scan = new Scanner(System.in);
         scan.useDelimiter("\n");
 
-        db.createClass("Template Class", "Lorem");
+        db.createClass("CPSC 110", "Gregor");
+        db.createClass("CPSC 121", "Karina");
         db.createTeacher("Teacher", "pw");
         db.createStudent("Student", "pw");
+        db.createStudent("Tom", "pw");
         db.createTA("TA", "pw");
     }
 
