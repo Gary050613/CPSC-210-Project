@@ -19,3 +19,6 @@ As a User, I want to:
 - TA: Assign a grade to a specific student's assignment
 - Student: View the list of assignments for a class
 - Student: Submit a file to a given assignment
+
+- Teacher: Save all new changes (All class + user states)
+- Teacher: Load from previously saved state
