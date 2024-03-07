@@ -3,6 +3,7 @@ package model;
 import error.MarkOverflow;
 import error.NoSubmission;
 
+// Represents a TA account
 public class TA extends User {
     // Constructor
     public TA(String userName, String password) {

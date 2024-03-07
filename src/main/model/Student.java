@@ -5,6 +5,7 @@ import error.DueDatePast;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a student account
 public class Student extends User {
     public Student(String userName, String password) {
         super(userName, password);

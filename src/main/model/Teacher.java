@@ -6,6 +6,7 @@ import error.NoSubmission;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Represents a teacher account
 public class Teacher extends User {
     public Teacher(String userName, String password) {
         super(userName, password);

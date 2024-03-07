@@ -1,0 +1,18 @@
+{"classes": [
+    {
+        "assignments": [],
+        "name": "CPSC 110",
+        "desc": "Gregor"
+    },
+    {
+        "assignments": [{
+            "due": "2005-06-13T10:00",
+            "name": "Ga",
+            "class": "CPSC 121",
+            "mark": 69,
+            "desc": "SODIJ"
+        }],
+        "name": "CPSC 121",
+        "desc": "Karina"
+    }
+]}

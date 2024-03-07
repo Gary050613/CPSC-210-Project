@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+// Represents one student's submission to one assignment
 public class Submission {
     private Student byStudent;
     private Assignment assignment;

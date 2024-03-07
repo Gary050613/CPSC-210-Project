@@ -1,9 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBase {
+// The Database that stores all information
+public class DataBase implements Writable {
     private List<Teacher> teachers;
     private List<TA> tas;
     private List<Student> students;
@@ -58,5 +63,24 @@ public class DataBase {
 
     public List<Class> getClasses() {
         return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("classes", classesToJson());
+        return json;
+    }
+
+    private JSONArray classesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Class clas : classes) {
+            jsonArray.put(clas.toJson());
+        }
+        return jsonArray;
     }
 }

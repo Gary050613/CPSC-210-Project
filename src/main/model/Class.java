@@ -1,13 +1,16 @@
 package model;
 
 import error.AlreadyInClass;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents an actual class. Contains Teachers, TA's, and students. Contains assignment information.
-public class Class {
+public class Class implements Writable {
     // Course Properties
     private String courseName;
     private String courseDescription;
@@ -103,5 +106,24 @@ public class Class {
 
     public List<TA> getListOfTAs() {
         return listOfTAs;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", courseName);
+        json.put("desc", courseDescription);
+        json.put("assignments", assignmentsToJson());
+        return json;
+    }
+
+    // EFFECTS: Returns all assignments of this class as a JSONArray
+    private JSONArray assignmentsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Assignment ass : listOfAssignments) {
+            jsonArray.put(ass.toJson());
+        }
+        return jsonArray;
     }
 }

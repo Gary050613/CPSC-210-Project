@@ -4,26 +4,38 @@ import error.AlreadyInClass;
 import error.NoSubmission;
 import model.*;
 import model.Class;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.jar.JarEntry;
 
 public class Canvos {
     private DataBase db;
     private Scanner scan;
+    private static final String JSON_STORE = "./data/database.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     public Canvos() {
         runSystem();
     }
+
+    //-----------------------   MAIN MENU UI SECTION   -----------------------
 
     // MODIFIES: this
     // EFFECTS: Initializes Canvos system
     private void init() {
         db = new DataBase();
         scan = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         scan.useDelimiter("\n");
 
         db.createClass("CPSC 110", "Gregor");
@@ -77,6 +89,8 @@ public class Canvos {
         }
     }
 
+    //-----------------------   SELECTOR SECTION   -----------------------
+
     // EFFECTS: Presents the list of classes and provides function to choose
     private Class selectClass() {
         for (int i = 0;i < db.getClasses().size();i++) {
@@ -99,7 +113,7 @@ public class Canvos {
             System.out.print(" [" + i + "]  ");
         }
         System.out.println();
-        System.out.println("Please select the student: (Select our of bound to go back)");
+        System.out.println("Please select the student: (Select out of bound to go back)");
         int studentSelection = scan.nextInt();
         if (studentSelection < 0 || studentSelection >= db.getStudents().size()) {
             return null;
@@ -122,6 +136,8 @@ public class Canvos {
         return clas.getListOfAssignments().get(assignmentSelection);
     }
 
+    //-----------------------   DISPLAY FORMAT SECTION   -----------------------
+
     // REQUIRES: Student has submitted the assignment
     // EFFECTS: Display the submission information
     private void displaySubmission(Submission submission) {
@@ -135,8 +151,9 @@ public class Canvos {
         }
     }
 
-    //TEACHER UI SECTION
+    //-----------------------   TEACHER UI SECTION   -----------------------
 
+    // TODO: Abstract Login Section
     // EFFECTS: Log the teacher in and return the account or return null if failed
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private Teacher runTeacherLogin() {
@@ -202,6 +219,8 @@ public class Canvos {
         System.out.println("\tc -> Create Assignment");
         System.out.println("\tv -> View Students");
         System.out.println("\ts -> View Submission");
+        System.out.println("\tg -> Save All Assignments");
+        System.out.println("\tl -> Load All Assignments");
         System.out.println("\tq -> quit");
     }
 
@@ -215,10 +234,16 @@ public class Canvos {
             teacherViewStudents(account);
         } else if (command.equals("s")) {
             teacherViewSubmissions(account);
+        } else if (command.equals("g")) {
+            saveAssignments();
+        } else if (command.equals("l")) {
+            loadAssignments();
         } else {
             System.out.println("Command Invalid.");
         }
     }
+
+    //-----------------------   TEACHER FUNCTION SECTION   -----------------------
 
     // MODIFIES: Class
     // EFFECTS: Presents options to pick student to add to a class
@@ -309,5 +334,120 @@ public class Canvos {
         } catch (NoSubmission e) {
             System.out.println("The student hasn't submitted the assignment!");
         }
+    }
+
+    // EFFECTS: Saves all assignment info to file
+    // Adapted from JsonSerializationDemo
+    private void saveAssignments() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(db);
+            jsonWriter.close();
+            System.out.println("Saved current assignment info to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find file at " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Loads all assignment info to file
+    private void loadAssignments() {
+        try {
+            List<Class> listOfClasses = jsonReader.readClasses();
+            db.setClasses(listOfClasses);
+            System.out.println("Loaded all assignment data from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    //-----------------------   STUDENT UI SECTION   -----------------------
+
+    // EFFECTS: Log the teacher in and return the account or return null if failed
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private Student runStudentLogin() {
+        Student curUser = null;
+        String userName = null;
+        String password = null;
+        List<Student> users = db.getStudents();
+        while (curUser == null) {
+            System.out.println("Please enter Username: (Or .back)");
+            userName = scan.next();
+            if (userName.equals(".back")) {
+                break;
+            }
+            for (Student user : users) {
+                if (user.getUserName().equals(userName)) {
+                    curUser = user;
+                    break;
+                }
+            }
+            if (curUser == null) {
+                System.out.println("Username not found.");
+            }
+            while (curUser != null) {
+                System.out.println("Please enter password: (Or .back)");
+                password = scan.next();
+                if (password.equals(".back")) {
+                    curUser = null;
+                    break;
+                } else if (curUser.login(password)) {
+                    System.out.println("Login successful!");
+                    return curUser;
+                } else {
+                    System.out.println("Password Incorrect!");
+                }
+            }
+        }
+        return null;
+    }
+
+    // EFFECTS: Runs the Student portal
+    private void runStudent() {
+        Student account = runStudentLogin();
+        if (account == null) {
+            return;
+        }
+        String command;
+        while (account != null) {
+            displayStudentMenu();
+            command = scan.next();
+
+            if (command.equals("q")) {
+                account = null;
+            } else {
+                processStudentCommand(command, account);
+            }
+        }
+    }
+
+    // EFFECTS: Displays menu of login options
+    private void displayStudentMenu() {
+        System.out.println("\nSelect from:");
+        System.out.println("\tv -> View Assignments");
+        System.out.println("\ta -> Submit Assignment");
+        System.out.println("\ts -> View Submission");
+        System.out.println("\tq -> quit");
+    }
+
+    // EFFECTS: Maps Student commands to corresponding functions
+    private void processStudentCommand(String command, Student account) {
+        if (command.equals("v")) {
+            studentViewAssignment(account);
+        } else if (command.equals("a")) {
+//            teacherCreateAssignment(account);
+        } else if (command.equals("s")) {
+//            teacherViewStudents(account);
+        } else {
+            System.out.println("Command Invalid.");
+        }
+    }
+
+    //-----------------------   STUDENT FUNCTION SECTION   -----------------------
+
+    // EFFECTS: View all the Assignments of a student
+    private void studentViewAssignment(Student account) {
+        List<Assignment> loA = account.getAllAssignments();
+        // TODO: Abstract select methods
     }
 }

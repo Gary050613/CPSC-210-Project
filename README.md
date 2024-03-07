@@ -20,5 +20,5 @@ As a User, I want to:
 - Student: View the list of assignments for a class
 - Student: Submit a file to a given assignment
 
-- Teacher: Save all new changes (All class + user states)
-- Teacher: Load from previously saved state
+- Teacher: Save assignment information (Save newly created assignments)
+- Teacher: Load from previously created assignments

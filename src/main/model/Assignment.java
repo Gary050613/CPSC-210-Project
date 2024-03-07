@@ -3,11 +3,14 @@ package model;
 import error.DueDatePast;
 import error.MarkOverflow;
 import error.NoSubmission;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class Assignment {
+// Represents an assignment for a class
+public class Assignment implements Writable {
     private String name;
     private String description;
     private LocalDateTime dueDate;
@@ -108,4 +111,15 @@ public class Assignment {
 //    public void setAssignedClass(Class assignedClass) {
 //        this.assignedClass = assignedClass;
 //    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("desc", description);
+        json.put("due", dueDate);
+        json.put("mark", availableMark);
+        json.put("class", assignedClass.getCourseName());
+        return json;
+    }
 }
