@@ -89,9 +89,9 @@ public class Assignment implements Writable {
 //        this.description = description;
 //    }
 //
-    public LocalDateTime getDueDate() {
-        return dueDate;
-    }
+//    public LocalDateTime getDueDate() {
+//        return dueDate;
+//    }
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
@@ -105,9 +105,9 @@ public class Assignment implements Writable {
 //        this.availableMark = availableMark;
 //    }
 
-    public Class getAssignedClass() {
-        return assignedClass;
-    }
+//    public Class getAssignedClass() {
+//        return assignedClass;
+//    }
 
 //    public void setAssignedClass(Class assignedClass) {
 //        this.assignedClass = assignedClass;

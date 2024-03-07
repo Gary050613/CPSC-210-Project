@@ -136,4 +136,29 @@ public class AssignmentTest {
             fail();
         }
     }
+
+    @Test
+    void testHashCode() {
+        Assignment ass1 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        Assignment ass2 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        Assignment ass3 = new Assignment("ass2", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        assertEquals(ass1.hashCode(), ass2.hashCode());
+        assertNotEquals(ass1.hashCode(), ass3.hashCode());
+    }
+
+    @Test
+    void testEquals() {
+        Assignment ass1 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        Assignment ass2 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        Assignment ass3 = new Assignment("ass2", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        assertTrue(ass1.equals(ass2.hashCode()));
+        assertFalse(ass1.equals(ass3.hashCode()));
+        assertFalse(ass1.equals(null));
+    }
 }

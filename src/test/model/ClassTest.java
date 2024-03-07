@@ -113,4 +113,20 @@ public class ClassTest {
         clas.addAssignment(ass);
         assertTrue(clas.getListOfAssignments().contains(ass));
     }
+
+    @Test
+    void testHashCode() {
+        Class clas2 = new Class("CPSC", "Computer");
+        assertEquals(clas, clas2);
+        assertNotEquals(clas, null);
+    }
+
+    @Test
+    void testEquals() {
+        Class clas2 = new Class("CPSC", "Computer");
+        Class clas3 = new Class("CPS", "Computer");
+        assertTrue(clas.equals(clas2));
+        assertFalse(clas.equals(clas3));
+        assertFalse(clas.equals(null));
+    }
 }
