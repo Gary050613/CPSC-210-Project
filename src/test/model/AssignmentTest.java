@@ -155,10 +155,17 @@ public class AssignmentTest {
                 50, clas);
         Assignment ass2 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
                 50, clas);
-        Assignment ass3 = new Assignment("ass2", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+        assertTrue(ass1.equals(ass2));
+        ass2 = new Assignment("ass2", "lol", LocalDateTime.parse("2020-10-10T10:10"),
                 50, clas);
-        assertTrue(ass1.equals(ass2.hashCode()));
-        assertFalse(ass1.equals(ass3.hashCode()));
+        assertFalse(ass1.equals(ass2));
+        ass2 = new Assignment("ass1", "nah", LocalDateTime.parse("2020-10-10T10:10"),
+                50, clas);
+        assertFalse(ass1.equals(ass2));
+        ass2 = new Assignment("ass1", "lol", LocalDateTime.parse("2020-10-10T10:10"),
+                25, clas);
+        assertFalse(ass1.equals(ass2));
         assertFalse(ass1.equals(null));
+        assertFalse(ass1.equals(new Object()));
     }
 }

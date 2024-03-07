@@ -134,8 +134,7 @@ public class Assignment implements Writable {
         }
         Assignment that = (Assignment) o;
         return availableMark == that.availableMark && Objects.equals(name, that.name)
-                && Objects.equals(description, that.description) && Objects.equals(dueDate, that.dueDate)
-                && Objects.equals(assignedClass, that.assignedClass);
+                && Objects.equals(description, that.description);
     }
 
     @Override

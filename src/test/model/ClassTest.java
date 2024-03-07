@@ -124,9 +124,12 @@ public class ClassTest {
     @Test
     void testEquals() {
         Class clas2 = new Class("CPSC", "Computer");
-        Class clas3 = new Class("CPS", "Computer");
         assertTrue(clas.equals(clas2));
+        Class clas3 = new Class("CPS", "Computer");
+        assertFalse(clas.equals(clas3));
+        clas3 = new Class("CPSC", "Compute");
         assertFalse(clas.equals(clas3));
         assertFalse(clas.equals(null));
+        assertFalse(clas.equals(new Object()));
     }
 }
