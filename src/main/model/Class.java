@@ -8,6 +8,7 @@ import persistence.Writable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // Represents an actual class. Contains Teachers, TA's, and students. Contains assignment information.
 public class Class implements Writable {
@@ -125,5 +126,24 @@ public class Class implements Writable {
             jsonArray.put(ass.toJson());
         }
         return jsonArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Class aclass = (Class) o;
+        return Objects.equals(courseName, aclass.courseName)
+                && Objects.equals(courseDescription, aclass.courseDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseName, courseDescription, listOfTeachers, listOfTAs, listOfStudents,
+                listOfAssignments);
     }
 }

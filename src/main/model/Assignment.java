@@ -8,6 +8,7 @@ import persistence.Writable;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Objects;
 
 // Represents an assignment for a class
 public class Assignment implements Writable {
@@ -88,9 +89,9 @@ public class Assignment implements Writable {
 //        this.description = description;
 //    }
 //
-//    public LocalDateTime getDueDate() {
-//        return dueDate;
-//    }
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
@@ -103,11 +104,11 @@ public class Assignment implements Writable {
 //    public void setAvailableMark(int availableMark) {
 //        this.availableMark = availableMark;
 //    }
-//
-//    public Class getAssignedClass() {
-//        return assignedClass;
-//    }
-//
+
+    public Class getAssignedClass() {
+        return assignedClass;
+    }
+
 //    public void setAssignedClass(Class assignedClass) {
 //        this.assignedClass = assignedClass;
 //    }
@@ -121,5 +122,24 @@ public class Assignment implements Writable {
         json.put("mark", availableMark);
         json.put("class", assignedClass.getCourseName());
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Assignment that = (Assignment) o;
+        return availableMark == that.availableMark && Objects.equals(name, that.name)
+                && Objects.equals(description, that.description) && Objects.equals(dueDate, that.dueDate)
+                && Objects.equals(assignedClass, that.assignedClass);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, dueDate, availableMark, assignedClass);
     }
 }
