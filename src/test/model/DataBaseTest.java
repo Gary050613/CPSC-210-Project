@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,5 +43,14 @@ public class DataBaseTest {
         db.createStudent("Student", "study");
         assertEquals("Student", db.getStudents().get(0).getUserName());
         assertTrue(db.getStudents().get(0).login("study"));
+    }
+
+    @Test
+    void testSetClasses() {
+        List<Class> classes = new ArrayList<>();
+        classes.add(new Class("CPSC 110", "Gregor"));
+        classes.add(new Class("CPSC 121", "Karina"));
+        db.setClasses(classes);
+        assertEquals(classes, db.getClasses());
     }
 }
