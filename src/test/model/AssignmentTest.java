@@ -184,4 +184,17 @@ public class AssignmentTest {
             fail();
         }
     }
+
+    @Test
+    void testSetters() {
+        ass.setName("NEW");
+        assertEquals("NEW", ass.getName());
+        ass.setDescription("YEAH");
+        assertEquals("YEAH", ass.getDescription());
+        LocalDateTime dueDate = LocalDateTime.parse("2000-10-10T10:00");
+        ass.setDueDate(dueDate);
+        assertEquals(dueDate, ass.getDueDate());
+        ass.setAvailableMark(10);
+        assertEquals(10, ass.getAvailableMark());
+    }
 }
