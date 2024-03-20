@@ -196,5 +196,6 @@ public class AssignmentTest {
         assertEquals(dueDate, ass.getDueDate());
         ass.setAvailableMark(10);
         assertEquals(10, ass.getAvailableMark());
+        assertEquals(clas, ass.getAssignedClass());
     }
 }
