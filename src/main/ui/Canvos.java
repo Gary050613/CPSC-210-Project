@@ -71,8 +71,8 @@ public class Canvos {
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tt -> Teacher Login");
-        System.out.println("\ts -> Student Login");
-        System.out.println("\ta -> TA Login");
+//        System.out.println("\ts -> Student Login");
+//        System.out.println("\ta -> TA Login");
         System.out.println("\tq -> quit");
     }
 
@@ -80,9 +80,9 @@ public class Canvos {
     private void processCommand(String command) {
         if (command.equals("t")) {
             runTeacher();
-        } else if (command.equals("s")) {
+//        } else if (command.equals("s")) {
 //            runStudent();
-        } else if (command.equals("a")) {
+//        } else if (command.equals("a")) {
 //            runTA();
         } else {
             System.out.println("Command Invalid.");
@@ -136,24 +136,32 @@ public class Canvos {
         return clas.getListOfAssignments().get(assignmentSelection);
     }
 
+    // EFFECTS: Print the information of the current assignment
+    private void printAssignment(Assignment ass) {
+        System.out.println("Assignment Name: " + ass.getName());
+        System.out.println("Description: " + ass.getDescription());
+        System.out.println("Due Date: " + ass.getDueDate());
+        System.out.println("Available Marks:" + ass.getAvailableMark());
+        System.out.println("Class: " + ass.getAssignedClass().getCourseName());
+    }
+
     //-----------------------   DISPLAY FORMAT SECTION   -----------------------
 
     // REQUIRES: Student has submitted the assignment
     // EFFECTS: Display the submission information
-    private void displaySubmission(Submission submission) {
-        System.out.println("Student: " + submission.getByStudent().getUserName());
-        System.out.println("Assignment:" + submission.getAssignment().getName());
-        System.out.println("Submission:" + submission.getContent());
-        if (submission.getMark() == -1) {
-            System.out.println("Hasn't been marked yet");
-        } else {
-            System.out.println("Mark: " + submission.getMark() + "/" + submission.getAssignment().getAvailableMark());
-        }
-    }
+//    private void displaySubmission(Submission submission) {
+//        System.out.println("Student: " + submission.getByStudent().getUserName());
+//        System.out.println("Assignment:" + submission.getAssignment().getName());
+//        System.out.println("Submission:" + submission.getContent());
+//        if (submission.getMark() == -1) {
+//            System.out.println("Hasn't been marked yet");
+//        } else {
+//            System.out.println("Mark: " + submission.getMark() + "/" + submission.getAssignment().getAvailableMark());
+//        }
+//    }
 
     //-----------------------   TEACHER UI SECTION   -----------------------
 
-    // TODO: Abstract Login Section
     // EFFECTS: Log the teacher in and return the account or return null if failed
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private Teacher runTeacherLogin() {
@@ -215,11 +223,11 @@ public class Canvos {
     // EFFECTS: Displays menu of login options
     private void displayTeacherMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ta -> Add Student");
-        System.out.println("\tc -> Create Assignment");
-        System.out.println("\tv -> View Students");
-        System.out.println("\ts -> View Submission");
-        System.out.println("\tg -> Save All Assignments");
+        System.out.println("\ta -> Create Assignment");
+        System.out.println("\tb -> View Assignment");
+        System.out.println("\tc -> Change Assignment");
+        System.out.println("\td -> Delete Assignment");
+        System.out.println("\ts -> Save All Assignments");
         System.out.println("\tl -> Load All Assignments");
         System.out.println("\tq -> quit");
     }
@@ -227,14 +235,14 @@ public class Canvos {
     // EFFECTS: Maps Teacher commands to corresponding functions
     private void processTeacherCommand(String command, Teacher account) {
         if (command.equals("a")) {
-            teacherAddStudent(account);
-        } else if (command.equals("c")) {
             teacherCreateAssignment(account);
-        } else if (command.equals("v")) {
-            teacherViewStudents(account);
+        } else if (command.equals("b")) {
+            teacherViewAssignments();
+        } else if (command.equals("c")) {
+            teacherChangeAssignment();
+        } else if (command.equals("d")) {
+            teacherDeleteAssignment();
         } else if (command.equals("s")) {
-            teacherViewSubmissions(account);
-        } else if (command.equals("g")) {
             saveAssignments();
         } else if (command.equals("l")) {
             loadAssignments();
@@ -243,26 +251,35 @@ public class Canvos {
         }
     }
 
+    private void displayAssignmentMenu() {
+        System.out.println("\nSelect from:");
+        System.out.println("\ta -> Change Name");
+        System.out.println("\tb -> Change Description");
+        System.out.println("\tc -> Change Due Date");
+        System.out.println("\td -> Change Available Mark");
+        System.out.println("\tq -> quit");
+    }
+
     //-----------------------   TEACHER FUNCTION SECTION   -----------------------
 
     // MODIFIES: Class
     // EFFECTS: Presents options to pick student to add to a class
-    private void teacherAddStudent(Teacher account) {
-        Class curClass = selectClass();
-        if (curClass == null) {
-            return;
-        }
-        Student curStudent = selectStudent();
-        if (curStudent == null) {
-            return;
-        }
-        try {
-            account.addStudent(curClass, curStudent);
-            System.out.println("Student successfully added!");
-        } catch (AlreadyInClass e) {
-            System.out.println("Student is already in ths class!");
-        }
-    }
+//    private void teacherAddStudent(Teacher account) {
+//        Class curClass = selectClass();
+//        if (curClass == null) {
+//            return;
+//        }
+//        Student curStudent = selectStudent();
+//        if (curStudent == null) {
+//            return;
+//        }
+//        try {
+//            account.addStudent(curClass, curStudent);
+//            System.out.println("Student successfully added!");
+//        } catch (AlreadyInClass e) {
+//            System.out.println("Student is already in ths class!");
+//        }
+//    }
 
     // MODIFIES: Class
     // EFFECTS: Creates a new assignment for a class
@@ -297,44 +314,126 @@ public class Canvos {
         System.out.println("Assignment created!");
     }
 
-    // EFFECTS: Prints  a list of students of a class
-    private void teacherViewStudents(Teacher account) {
+    // EFFECTS: Select an assignment an prints the details of the assignment
+    private void teacherViewAssignments() {
         Class curClass = selectClass();
         if (curClass == null) {
             return;
         }
-
-        List<Student> loS = account.viewStudents(curClass);
-        for (Student stud : loS) {
-            System.out.println(stud.getUserName() + " ");
+        Assignment curAss = selectAssignment(curClass);
+        if (curAss == null) {
+            return;
         }
-        System.out.println();
+        printAssignment(curAss);
     }
+
+    // MODIFIES: Assignment
+    // EFFECTS: Allows user to choose an assignment and changes its details
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private void teacherChangeAssignment() {
+        Class curClass = selectClass();
+        if (curClass == null) {
+            return;
+        }
+        Assignment curAss = selectAssignment(curClass);
+        if (curAss == null) {
+            return;
+        }
+        printAssignment(curAss);
+
+        String command;
+        while (true) {
+            displayAssignmentMenu();
+            command = scan.next();
+            if (command.equals("a")) {
+                System.out.println("Assignment Name:");
+                String assName = scan.next();
+                curAss.setName(assName);
+            } else if (command.equals("b")) {
+                System.out.println("Assignment Description:");
+                String assDesc = scan.next();
+                curAss.setDescription(assDesc);
+            } else if (command.equals("c")) {
+                System.out.println("Due Date (yyyy-MM-dd HH:mm):");
+                String dueString = scan.next();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime dueDate;
+                try {
+                    dueDate = LocalDateTime.parse(dueString, formatter);
+                    curAss.setDueDate(dueDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Incorrect Date Format");
+                }
+            } else if (command.equals("d")) {
+                System.out.println("Available Marks:");
+                int availMark = scan.nextInt();
+                curAss.setAvailableMark(availMark);
+            } else if (command.equals("q")) {
+                return;
+            }
+        }
+    }
+
+    // MODIFIES: Class
+    // EFFECTS: Delete the selected assignment from the class
+    private void teacherDeleteAssignment() {
+        Class curClass = selectClass();
+        if (curClass == null) {
+            return;
+        }
+        Assignment curAss = selectAssignment(curClass);
+        if (curAss == null) {
+            return;
+        }
+        System.out.println("Are you sure you want to delete " + curAss.getName() + "? [y]");
+        String command = scan.next();
+        if (command.equals("y")) {
+            curAss.selfDelete();
+            System.out.println("Assignment Deleted");
+        } else {
+            System.out.println("Delete Action Terminated");
+            return;
+        }
+    }
+
+    // EFFECTS: Prints  a list of students of a class
+//    private void teacherViewStudents(Teacher account) {
+//        Class curClass = selectClass();
+//        if (curClass == null) {
+//            return;
+//        }
+//
+//        List<Student> loS = account.viewStudents(curClass);
+//        for (Student stud : loS) {
+//            System.out.println(stud.getUserName() + " ");
+//        }
+//        System.out.println();
+//    }
 
     // EFFECTS: Prints the submission details of a student's assignment
-    private void teacherViewSubmissions(Teacher account) {
-        Class curClass = selectClass();
-        if (curClass == null) {
-            return;
-        }
-
-        Assignment curAssignment = selectAssignment(curClass);
-        if (curAssignment == null) {
-            return;
-        }
-
-        Student curStudent = selectStudent();
-        if (curStudent == null) {
-            return;
-        }
-        Submission submission;
-        try {
-            submission = account.viewSubmission(curAssignment, curStudent);
-            displaySubmission(submission);
-        } catch (NoSubmission e) {
-            System.out.println("The student hasn't submitted the assignment!");
-        }
-    }
+//    private void teacherViewSubmissions(Teacher account) {
+//        Class curClass = selectClass();
+//        if (curClass == null) {
+//            return;
+//        }
+//
+//        Assignment curAssignment = selectAssignment(curClass);
+//        if (curAssignment == null) {
+//            return;
+//        }
+//
+//        Student curStudent = selectStudent();
+//        if (curStudent == null) {
+//            return;
+//        }
+//        Submission submission;
+//        try {
+//            submission = account.viewSubmission(curAssignment, curStudent);
+//            displaySubmission(submission);
+//        } catch (NoSubmission e) {
+//            System.out.println("The student hasn't submitted the assignment!");
+//        }
+//    }
 
     // EFFECTS: Saves all assignment info to file
     // Adapted from JsonSerializationDemo
@@ -364,90 +463,85 @@ public class Canvos {
     //-----------------------   STUDENT UI SECTION   -----------------------
 
     // EFFECTS: Log the teacher in and return the account or return null if failed
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-    private Student runStudentLogin() {
-        Student curUser = null;
-        String userName = null;
-        String password = null;
-        List<Student> users = db.getStudents();
-        while (curUser == null) {
-            System.out.println("Please enter Username: (Or .back)");
-            userName = scan.next();
-            if (userName.equals(".back")) {
-                break;
-            }
-            for (Student user : users) {
-                if (user.getUserName().equals(userName)) {
-                    curUser = user;
-                    break;
-                }
-            }
-            if (curUser == null) {
-                System.out.println("Username not found.");
-            }
-            while (curUser != null) {
-                System.out.println("Please enter password: (Or .back)");
-                password = scan.next();
-                if (password.equals(".back")) {
-                    curUser = null;
-                    break;
-                } else if (curUser.login(password)) {
-                    System.out.println("Login successful!");
-                    return curUser;
-                } else {
-                    System.out.println("Password Incorrect!");
-                }
-            }
-        }
-        return null;
-    }
+//    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+//    private Student runStudentLogin() {
+//        Student curUser = null;
+//        String userName = null;
+//        String password = null;
+//        List<Student> users = db.getStudents();
+//        while (curUser == null) {
+//            System.out.println("Please enter Username: (Or .back)");
+//            userName = scan.next();
+//            if (userName.equals(".back")) {
+//                break;
+//            }
+//            for (Student user : users) {
+//                if (user.getUserName().equals(userName)) {
+//                    curUser = user;
+//                    break;
+//                }
+//            }
+//            if (curUser == null) {
+//                System.out.println("Username not found.");
+//            }
+//            while (curUser != null) {
+//                System.out.println("Please enter password: (Or .back)");
+//                password = scan.next();
+//                if (password.equals(".back")) {
+//                    curUser = null;
+//                    break;
+//                } else if (curUser.login(password)) {
+//                    System.out.println("Login successful!");
+//                    return curUser;
+//                } else {
+//                    System.out.println("Password Incorrect!");
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     // EFFECTS: Runs the Student portal
-    private void runStudent() {
-        Student account = runStudentLogin();
-        if (account == null) {
-            return;
-        }
-        String command;
-        while (account != null) {
-            displayStudentMenu();
-            command = scan.next();
-
-            if (command.equals("q")) {
-                account = null;
-            } else {
-                processStudentCommand(command, account);
-            }
-        }
-    }
+//    private void runStudent() {
+//        Student account = runStudentLogin();
+//        if (account == null) {
+//            return;
+//        }
+//        String command;
+//        while (account != null) {
+//            displayStudentMenu();
+//            command = scan.next();
+//
+//            if (command.equals("q")) {
+//                account = null;
+//            } else {
+//                processStudentCommand(command, account);
+//            }
+//        }
+//    }
 
     // EFFECTS: Displays menu of login options
-    private void displayStudentMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\tv -> View Assignments");
-        System.out.println("\ta -> Submit Assignment");
-        System.out.println("\ts -> View Submission");
-        System.out.println("\tq -> quit");
-    }
+//    private void displayStudentMenu() {
+//        System.out.println("\nSelect from:");
+//        System.out.println("\tv -> View Assignments");
+//        System.out.println("\ta -> Submit Assignment");
+//        System.out.println("\ts -> View Submission");
+//        System.out.println("\tq -> quit");
+//    }
 
     // EFFECTS: Maps Student commands to corresponding functions
-    private void processStudentCommand(String command, Student account) {
-        if (command.equals("v")) {
-            studentViewAssignment(account);
-        } else if (command.equals("a")) {
+//    private void processStudentCommand(String command, Student account) {
+//        if (command.equals("v")) {
+//            studentViewAssignment(account);
+//        } else if (command.equals("a")) {
 //            teacherCreateAssignment(account);
-        } else if (command.equals("s")) {
+//        } else if (command.equals("s")) {
 //            teacherViewStudents(account);
-        } else {
-            System.out.println("Command Invalid.");
-        }
-    }
+//        } else {
+//            System.out.println("Command Invalid.");
+//        }
+//    }
 
     //-----------------------   STUDENT FUNCTION SECTION   -----------------------
 
-    // EFFECTS: View all the Assignments of a student
-    private void studentViewAssignment(Student account) {
-        List<Assignment> loA = account.getAllAssignments();
-        // TODO: Abstract select methods
-    }
 }

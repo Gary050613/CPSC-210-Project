@@ -12,13 +12,10 @@ I want to make this project as I work as a tutor, and the place that I work at s
 ## User Stories
 
 As a User, I want to:
-- Teacher: Add students to different classes
 - Teacher: Add assignments to classes
-- Teacher: View the list of students for a specific class
-- Teacher: View the submission & marking of a student's assignment
-- TA: Assign a grade to a specific student's assignment
-- Student: View the list of assignments for a class
-- Student: Submit a file to a given assignment
+- Teacher: View assignments of classes
+- Teacher: Change assignments of classes
+- Teacher: Delete assignments of classes
 
 - Teacher: Save assignment information (Save newly created assignments)
 - Teacher: Load from previously created assignments

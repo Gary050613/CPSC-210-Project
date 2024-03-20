@@ -168,4 +168,20 @@ public class AssignmentTest {
         assertFalse(ass1.equals(null));
         assertFalse(ass1.equals(new Object()));
     }
+
+    @Test
+    void testSelfDelete() {
+        ass.selfDelete();
+        assertFalse(clas.getListOfAssignments().contains(ass));
+    }
+
+    @Test
+    void testSelfDeleteAlreadyDeleted() {
+        ass.selfDelete();
+        try {
+            ass.selfDelete();
+        } catch (Exception e) {
+            fail();
+        }
+    }
 }

@@ -1,17 +1,26 @@
 {"classes": [
     {
-        "assignments": [],
+        "assignments": [
+            {
+                "due": "1000-10-10T10:00",
+                "name": "HI",
+                "class": "CPSC 110",
+                "mark": 100,
+                "desc": "Good"
+            },
+            {
+                "due": "2000-10-10T00:00",
+                "name": "New Assignment",
+                "class": "CPSC 110",
+                "mark": 80,
+                "desc": "Demo"
+            }
+        ],
         "name": "CPSC 110",
         "desc": "Gregor"
     },
     {
-        "assignments": [{
-            "due": "2005-06-13T10:00",
-            "name": "Ga",
-            "class": "CPSC 121",
-            "mark": 69,
-            "desc": "SODIJ"
-        }],
+        "assignments": [],
         "name": "CPSC 121",
         "desc": "Karina"
     }

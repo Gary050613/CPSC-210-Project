@@ -72,26 +72,30 @@ public class Assignment implements Writable {
         }
     }
 
+    public void selfDelete() {
+        this.assignedClass.getListOfAssignments().remove(this);
+    }
+
     // Getters & Setters
     public String getName() {
         return name;
     }
 
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
     }
 
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public LocalDateTime getDueDate() {
-//        return dueDate;
-//    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
@@ -101,17 +105,13 @@ public class Assignment implements Writable {
         return availableMark;
     }
 
-//    public void setAvailableMark(int availableMark) {
-//        this.availableMark = availableMark;
-//    }
+    public void setAvailableMark(int availableMark) {
+        this.availableMark = availableMark;
+    }
 
-//    public Class getAssignedClass() {
-//        return assignedClass;
-//    }
-
-//    public void setAssignedClass(Class assignedClass) {
-//        this.assignedClass = assignedClass;
-//    }
+    public Class getAssignedClass() {
+        return assignedClass;
+    }
 
     @Override
     public JSONObject toJson() {
