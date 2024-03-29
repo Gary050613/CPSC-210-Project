@@ -27,5 +27,5 @@ Click on Change Assignment, select class and assignment, fill in details to chan
 Click on View Assignment, select class and assignment to view the details of the assignment
 Click on Save/ Load Assignment, assignment data will be loaded from JSON
 
-The background image is at the Teacher Portal
+The background image is at the beginning of Teacher Login
 

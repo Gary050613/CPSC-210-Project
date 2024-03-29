@@ -5,6 +5,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -17,6 +18,7 @@ import java.util.List;
 import model.*;
 import model.Class;
 
+import static java.lang.Thread.sleep;
 import static javax.swing.SwingConstants.*;
 
 public class SwingUI {
@@ -68,7 +70,34 @@ public class SwingUI {
     // EFFECTS: Display Login portal
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayLogin() {
+        // Adapted from https://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-
+        // background-for-frame-in-swing-gui-of-java
+        ImageIcon background = new ImageIcon("./data/background.jpeg");
+        Image img = background.getImage();
+        Image temp = img.getScaledInstance(UI_WIDTH,UI_HEIGHT,Image.SCALE_SMOOTH);
+        background = new ImageIcon(temp);
+        JLabel back = new JLabel(background);
+        back.setBounds(0,0,UI_WIDTH,UI_HEIGHT);
+
         loginUI = new JFrame();
+
+        loginUI.add(back);
+        loginUI.setSize(UI_WIDTH,UI_HEIGHT);
+        loginUI.setLayout(null);
+        loginUI.setVisible(true);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        loginUI.dispose();
+
+        loginUI = new JFrame();
+        loginUI.setSize(UI_WIDTH,UI_HEIGHT);
+        loginUI.setLayout(null);
+        loginUI.setVisible(true);
+
+//        loginUI.add(back);
         JLabel userString = new JLabel("Username");
         userString.setBounds((UI_WIDTH - TEXT_FIELD_WIDTH) / 2,
                 (UI_HEIGHT - TEXT_FIELD_HEIGHT) / 3 - TEXT_HEIGHT,
@@ -121,10 +150,6 @@ public class SwingUI {
                 UI_WIDTH, TEXT_HEIGHT);
         alert.setHorizontalAlignment(CENTER);
         loginUI.add(alert);
-
-        loginUI.setSize(UI_WIDTH,UI_HEIGHT);
-        loginUI.setLayout(null);
-        loginUI.setVisible(true);
     }
 
     // EFFECTS: Display Teacher portal
