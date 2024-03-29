@@ -2,18 +2,18 @@
     {
         "assignments": [
             {
-                "due": "1000-10-10T10:00",
-                "name": "HI",
-                "class": "CPSC 110",
-                "mark": 100,
-                "desc": "Good"
-            },
-            {
                 "due": "2000-10-10T00:00",
                 "name": "New Assignment",
                 "class": "CPSC 110",
                 "mark": 80,
                 "desc": "Demo"
+            },
+            {
+                "due": "1000-10-10T10:00",
+                "name": "HI",
+                "class": "CPSC 110",
+                "mark": 101,
+                "desc": "Good"
             }
         ],
         "name": "CPSC 110",

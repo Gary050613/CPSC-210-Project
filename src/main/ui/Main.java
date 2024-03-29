@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        Canvos c = new Canvos();
+//        Canvos c = new Canvos();
+        SwingUI swingUI = new SwingUI();
     }
 }
