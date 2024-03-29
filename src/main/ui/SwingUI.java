@@ -65,7 +65,7 @@ public class SwingUI {
 //        displayTeacherPortal();
     }
 
-    // TODO: Documentation
+    // EFFECTS: Display Login portal
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayLogin() {
         loginUI = new JFrame();
@@ -127,7 +127,7 @@ public class SwingUI {
         loginUI.setVisible(true);
     }
 
-    // TODO: Documentation
+    // EFFECTS: Display Teacher portal
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayTeacherPortal() {
         teacherPortal = new JFrame();
@@ -213,6 +213,8 @@ public class SwingUI {
         teacherPortal.setVisible(true);
     }
 
+    // MODIFIES: Database
+    // EFFECTS: Display Teacher portal for creating assignment
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayCreateAssignment() {
         JFrame createAss = new JFrame();
@@ -307,6 +309,7 @@ public class SwingUI {
         });
     }
 
+    // EFFECTS: Display Teacher portal for viewing assignment
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayViewAssignment() {
         JFrame displayAss = new JFrame();
@@ -360,6 +363,8 @@ public class SwingUI {
         });
     }
 
+    // MODIFIES: Database
+    // EFFECTS: Display Teacher portal for changing assignment
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayChangeAssignment() {
         JFrame changeAss = new JFrame();
@@ -455,6 +460,9 @@ public class SwingUI {
         });
     }
 
+    // MODIFIES: Database
+    // EFFECTS: Display Teacher portal for deleting assignment
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displayDeleteAssignment() {
         JFrame deleteAss = new JFrame();
         int curUIPos = UI_HEIGHT / 3;
@@ -487,6 +495,8 @@ public class SwingUI {
         });
     }
 
+    // MODIFIES: JSON files
+    // EFFECTS: Saves current state of assignment
     private void saveAssignments() {
         try {
             jsonWriter.open();
@@ -499,6 +509,8 @@ public class SwingUI {
         displayTeacherPortal();
     }
 
+    // MODIFIES: JSON files
+    // EFFECTS: Loads current state of assignment
     private void loadAssignments() {
         try {
             List<Class> listOfClasses = jsonReader.readClasses();
@@ -510,6 +522,8 @@ public class SwingUI {
         displayTeacherPortal();
     }
 
+    // MODIFIES: curAss
+    // EFFECTS: Display Teacher portal for selecting assignment
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displaySelectAssignment(int action) {
         JFrame selectAssignment = new JFrame();
@@ -555,6 +569,8 @@ public class SwingUI {
         selectAssignment.setVisible(true);
     }
 
+    // MODIFIES: curClass
+    // EFFECTS: Display Teacher portal for selecting class
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void displaySelectClass(int action) {
         JFrame selectClass = new JFrame();
