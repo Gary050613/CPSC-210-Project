@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.jar.JarEntry;
 
+// Console based User Interface
 public class Canvos {
     private DataBase db;
     private Scanner scan;

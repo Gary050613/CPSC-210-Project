@@ -24,6 +24,7 @@ import model.Class;
 import static java.lang.Thread.sleep;
 import static javax.swing.SwingConstants.*;
 
+// Swing based Graphical User Interface
 public class SwingUI {
     JFrame loginUI;
     JFrame teacherPortal;
