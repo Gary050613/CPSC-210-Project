@@ -1,6 +1,8 @@
 package persistence;
 
 import model.DataBase;
+import model.Event;
+import model.EventLog;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -29,6 +31,7 @@ public class JsonWriter {
     public void write(DataBase db) {
         JSONObject json = db.toJson();
         saveToFile(json.toString(TAB));
+        EventLog.getInstance().logEvent(new Event("Current database is saved into JSON files"));
     }
 
     // MODIFIES: this

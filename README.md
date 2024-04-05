@@ -29,3 +29,7 @@ Click on Save/ Load Assignment, assignment data will be loaded from JSON
 
 The background image is at the beginning of Teacher Login
 
+Phase 4: Tast 2
+Thu Apr 04 17:45:07 PDT 2024: Teacher successfully logged in.
+Thu Apr 04 17:45:24 PDT 2024: Teacher created a new Assignment Assignment 1 for CPSC 110
+Thu Apr 04 17:45:36 PDT 2024: Loaded current database from JSON files

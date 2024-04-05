@@ -1,6 +1,7 @@
 package ui;
 
 import model.DataBase;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -8,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -164,7 +167,7 @@ public class SwingUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 displaySelectClass(0);
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
             }
         });
         teacherPortal.add(create);
@@ -176,7 +179,7 @@ public class SwingUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 displaySelectClass(1);
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
             }
         });
         teacherPortal.add(view);
@@ -188,7 +191,7 @@ public class SwingUI {
         change.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
                 displaySelectClass(2);
             }
         });
@@ -201,7 +204,7 @@ public class SwingUI {
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
                 displaySelectClass(3);
             }
         });
@@ -214,7 +217,7 @@ public class SwingUI {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
                 saveAssignments();
             }
         });
@@ -227,12 +230,50 @@ public class SwingUI {
         load.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                teacherPortal.dispose();
+//                teacherPortal.dispose();
                 loadAssignments();
             }
         });
         teacherPortal.add(load);
 
+        teacherPortal.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.getDate() + ": " + event.getDescription());
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
         teacherPortal.setSize(UI_WIDTH, UI_HEIGHT);
         teacherPortal.setLayout(null);
         teacherPortal.setVisible(true);
@@ -329,7 +370,7 @@ public class SwingUI {
                 }
                 curTeacher.createAssignment(curClass, assNameString, assDescString, dueDate, availMark);
                 createAss.dispose();
-                displayTeacherPortal();
+//                displayTeacherPortal();
             }
         });
     }
@@ -383,7 +424,7 @@ public class SwingUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 displayAss.dispose();
-                displayTeacherPortal();
+//                displayTeacherPortal();
             }
         });
     }
@@ -477,10 +518,10 @@ public class SwingUI {
                 } catch (DateTimeParseException ex) {
                     System.out.println("Incorrect Date Format");
                 }
-                curAss.selfDelete();
+                curTeacher.deleteAssignment(curAss);
                 curTeacher.createAssignment(curClass, assNameString, assDescString, dueDate, availMark);
                 changeAss.dispose();
-                displayTeacherPortal();
+//                displayTeacherPortal();
             }
         });
     }
@@ -515,7 +556,7 @@ public class SwingUI {
             public void actionPerformed(ActionEvent e) {
                 curAss.selfDelete();
                 deleteAss.dispose();
-                displayTeacherPortal();
+//                displayTeacherPortal();
             }
         });
     }
@@ -531,7 +572,7 @@ public class SwingUI {
         } catch (FileNotFoundException e) {
             System.out.println("Cannot find file at " + JSON_STORE);
         }
-        displayTeacherPortal();
+//        displayTeacherPortal();
     }
 
     // MODIFIES: JSON files
@@ -544,7 +585,7 @@ public class SwingUI {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
-        displayTeacherPortal();
+//        displayTeacherPortal();
     }
 
     // MODIFIES: curAss
@@ -570,7 +611,8 @@ public class SwingUI {
             public void actionPerformed(ActionEvent e) {
                 if (indexSelector.getSelectedIndex() == -1) {
                     selectAssignment.dispose();
-                    displayTeacherPortal();
+//                    displayTeacherPortal();
+                    return;
                 }
                 curAss = curClass.getListOfAssignments().get(indexSelector.getSelectedIndex());
                 selectAssignment.dispose();

@@ -92,4 +92,12 @@ public class TeacherTest {
             fail();
         }
     }
+
+    @Test
+    void testDeleteAssignment() {
+        teacher.createAssignment(clas, "", "", LocalDateTime.now().plusSeconds(1), 0);
+        Assignment ass = clas.getListOfAssignments().get(0);
+        teacher.deleteAssignment(ass);
+        assertFalse(clas.getListOfAssignments().contains(ass));
+    }
 }

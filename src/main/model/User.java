@@ -20,7 +20,11 @@ public class User {
 
     // EFFECTS: Checks whether the entered password is correct
     public boolean login(String enteredPassword) {
-        return enteredPassword.equals(this.password);
+        if (enteredPassword.equals(this.password)) {
+            EventLog.getInstance().logEvent(new Event(userName + " successfully logged in."));
+            return true;
+        }
+        return false;
     }
 
     // REQUIRES: Class not already inside listOfClasses

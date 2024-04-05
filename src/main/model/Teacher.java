@@ -22,6 +22,17 @@ public class Teacher extends User {
     // EFFECTS: Create a new Assignment for Class
     public void createAssignment(Class clas, String assName, String assDesc, LocalDateTime dueDate, int availMark) {
         clas.addAssignment(new Assignment(assName, assDesc, dueDate, availMark, clas));
+        EventLog.getInstance().logEvent(new Event(
+                getUserName() + " created a new Assignment " + assName + " for " + clas.getCourseName()));
+    }
+
+    // MODIFIES: class
+    // EFFECTS: Deletes the Assignment for Class
+    public void deleteAssignment(Assignment ass) {
+        ass.selfDelete();
+        EventLog.getInstance().logEvent(new Event(
+                getUserName() + " deleted the Assignment "
+                        + ass.getName() + " for " + ass.getAssignedClass().getCourseName()));
     }
 
     // EFFECTS: Returns the students for the Class

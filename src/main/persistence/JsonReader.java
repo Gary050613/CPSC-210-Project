@@ -1,7 +1,6 @@
 package persistence;
 
-import model.Assignment;
-import model.DataBase;
+import model.*;
 import model.Class;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +29,7 @@ public class JsonReader {
     public List<Class> readClasses() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
+        EventLog.getInstance().logEvent(new Event("Loaded current database from JSON files"));
         return parseDataBase(jsonObject);
     }
 
